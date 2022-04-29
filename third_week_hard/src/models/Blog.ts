@@ -7,17 +7,19 @@ const BlogSchema = new mongoose.Schema({
         required: true
     },
     writer: {
-        name: { type: String }
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
     },
     context: {
         type: String,
         required: true
     },
     createdAt: {
-        type: new Date()
+        type: Date,
+        default: Date.now
     },
     updatedAt: {
-        type: new Date()
+        type: Date
     }
 });
 

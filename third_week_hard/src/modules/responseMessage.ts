@@ -8,6 +8,11 @@ const responseMessage = {
     UPDATE_USER_SUCCESS: '유저 수정 성공',
     DELETE_USER_SUCCESS: '유저 삭제 성공',
 
+    CREATED_BLOG_SUCCESS: '게시물 등록 성공',
+    READ_BLOG_SUCCESS: '게시물 조회 성공',
+    UPDATE_BLOG_SUCCESS: '게시물 수정 성공',
+    DELETE_BLOG_SUCCESS: '게시물 삭제 성공',
+
     INTERNAL_SERVER_ERROR: '서버 내부 오류'
 }
 

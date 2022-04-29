@@ -18,7 +18,7 @@ const createBlog = async (req: Request, res: Response): Promise<void> => {
     try {
         const data: PostBaseResponseDto = await BlogService.createBlog(blogCreateDto);
 
-        res.status(statusCode.CREATED).send(util.success(statusCode.CREATED, responseMessage.CREATED_USER_SUCCESS, data));
+        res.status(statusCode.CREATED).send(util.success(statusCode.CREATED, responseMessage.CREATED_BLOG_SUCCESS, data));
     } catch (error) {
         console.log(error);
         res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR, responseMessage.INTERNAL_SERVER_ERROR));
@@ -55,7 +55,7 @@ const findBlogById = async (req: Request, res: Response): Promise<void> => {
     try {
         const data: BlogResponseDto | null = await BlogService.findBlogById(blogId);
 
-        res.status(statusCode.OK).send(util.success(statusCode.OK, responseMessage.READ_USER_SUCCESS, data));
+        res.status(statusCode.OK).send(util.success(statusCode.OK, responseMessage.READ_BLOG_SUCCESS, data));
     } catch (error) {
         console.log(error);
         res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR, responseMessage.INTERNAL_SERVER_ERROR));

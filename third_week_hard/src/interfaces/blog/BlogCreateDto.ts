@@ -5,5 +5,5 @@ export interface BlogCreateDto {
     title: string;
     writer: UserInfo;
     context: string;
-    createAt: Date;
+    createdAt: Date;
 }

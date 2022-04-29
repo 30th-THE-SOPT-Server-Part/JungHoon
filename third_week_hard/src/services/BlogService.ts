@@ -10,7 +10,7 @@ const createBlog = async (blogCreateDto: BlogCreateDto) => {
             title: blogCreateDto.title,
             writer: blogCreateDto.writer,
             context: blogCreateDto.context,
-            createdAt: blogCreateDto.createAt
+            createdAt: blogCreateDto.createdAt,
         });
 
         await blog.save();

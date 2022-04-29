@@ -5,5 +5,5 @@ export interface BlogInfo {
     writer: UserInfo;
     context: string;
     createdAt: Date;
-    updatedAt?: Date;
+    updatedAt: Date;
 }
