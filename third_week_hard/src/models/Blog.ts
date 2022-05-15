@@ -13,14 +13,10 @@ const BlogSchema = new mongoose.Schema({
     context: {
         type: String,
         required: true
-    },
-    createdAt: {
-        type: Date,
-        default: Date.now
-    },
-    updatedAt: {
-        type: Date
     }
+},    
+{
+    timestamps: true
 });
 
 export default mongoose.model<BlogInfo & mongoose.Document>("Blog", BlogSchema);

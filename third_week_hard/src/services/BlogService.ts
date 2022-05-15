@@ -10,7 +10,6 @@ const createBlog = async (blogCreateDto: BlogCreateDto) => {
             title: blogCreateDto.title,
             writer: blogCreateDto.writer,
             context: blogCreateDto.context,
-            createdAt: blogCreateDto.createdAt,
         });
 
         await blog.save();
@@ -31,8 +30,7 @@ const updateBlog = async (blogId: string, blogUpdateDto: BlogUpdateDto) => {
     try {
         const updateBlog = {
             title: blogUpdateDto.title,
-            context: blogUpdateDto.context,
-            updatedAt: blogUpdateDto.updatedAt
+            context: blogUpdateDto.context
         }
 
         await Blog.findByIdAndUpdate(blogId, updateBlog);
