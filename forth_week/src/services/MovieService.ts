@@ -39,7 +39,18 @@ const findMovieById = async (movieId: string): Promise<MovieResponseDto | null> 
     }
 }
 
+const findAllMovies = async () => {
+    try {
+        const movies = await Movie.find();
+        return movies;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
+
 export default {
     createMovie,
     findMovieById,
+    findAllMovies,
 }

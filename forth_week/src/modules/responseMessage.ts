@@ -17,6 +17,7 @@ const message = {
     // 영화
     CREATE_MOVIE_SUCCESS: '영화 생성 성공',
     READ_MOVIE_SUCCESS: '영화 조회 성공',
+    READ_ALL_MOVIES_SUCCESS: '모든 영화 조회 성공',
 }
 
 export default message;

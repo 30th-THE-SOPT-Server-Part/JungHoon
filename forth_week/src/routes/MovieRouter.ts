@@ -22,4 +22,6 @@ router.post('/', [
 
 router.get('/:movieId', MovieController.findMovieById);
 
+router.get('/', MovieController.findAllMovies);
+
 export default router;
