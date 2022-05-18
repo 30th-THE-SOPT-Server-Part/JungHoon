@@ -77,9 +77,26 @@ const updateMovie = async (req: Request, res: Response) => {
     }
 }
 
+/**
+ *  @route DELETE /movie/:movieId
+ *  @desc Delete Movie
+ *  @access Public
+ */
+const deleteMovie = async (req: Request, res: Response) => {
+    const { movieId } = req.params;
+    try {
+        await MovieService.deleteMovie(movieId);
+        res.status(statusCode.NO_CONTENT).send();
+    } catch (error) {
+        console.log(error);
+        res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR, message.INTERNAL_SERVER_ERROR));
+    }
+}
+
 export default {
     createMovie,
     findMovieById,
     findAllMovies,
     updateMovie,
+    deleteMovie
 }
