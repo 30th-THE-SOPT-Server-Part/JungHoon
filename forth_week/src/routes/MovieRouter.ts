@@ -20,4 +20,6 @@ router.post('/', [
         .notEmpty()
 ], MovieController.createMovie);
 
+router.get('/:movieId', MovieController.findMovieById);
+
 export default router;
