@@ -24,4 +24,6 @@ router.get('/:movieId', MovieController.findMovieById);
 
 router.get('/', MovieController.findAllMovies);
 
+router.put('/:movieId', MovieController.updateMovie);
+
 export default router;

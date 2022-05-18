@@ -4,7 +4,7 @@ import statusCode from "../modules/statusCode";
 import util from "../modules/util";
 import { MovieService } from "../services";
 import { MovieCreateDto } from "../interfaces/movie/MovieCreateDto";
-import { MovieResponseDto } from "../interfaces/movie/MovieResponseDto";
+import { MovieUpdateDto } from "../interfaces/movie/MovieUpdateDto";
 
 /**
  *  @route POST /movie
@@ -60,8 +60,26 @@ const findAllMovies = async (req: Request, res: Response) => {
     }
 }
 
+/**
+ *  @route PUT /movie/:movieId
+ *  @desc Update Movie
+ *  @access Public
+ */
+const updateMovie = async (req: Request, res: Response) => {
+    const movieUpdateDto: MovieUpdateDto = req.body;
+    const { movieId } = req.params;
+    try {
+        const data = await MovieService.updateMovie(movieId, movieUpdateDto);
+        res.status(statusCode.NO_CONTENT).send();
+    } catch (error) {
+        console.log(error);
+        res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR, message.INTERNAL_SERVER_ERROR));
+    }
+}
+
 export default {
     createMovie,
     findMovieById,
     findAllMovies,
+    updateMovie,
 }
