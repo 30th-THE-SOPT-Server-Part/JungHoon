@@ -77,9 +77,9 @@ const updateMovieComment = async (movieId: string, commentId: string, userId: st
 }
 
 const getMoviesBySearch = async (
-    search: string,
-    option: MovieOptionType,
-    page: number
+    page: number,
+    search?: string,
+    option?: MovieOptionType
 ): Promise<MoviesResponseDto> => {
     const regex = (pattern: string) => new RegExp(`.*${pattern}.*`);
 
@@ -87,25 +87,32 @@ const getMoviesBySearch = async (
     const perPage: number = 2;
 
     try {
-        const titleRegex = regex(search);
+        if (search && option) {
+            const titleRegex = regex(search);
 
-        if (option === "title") {
-            movies = await Movie.find({ title: { $regex: titleRegex } })
-                .sort({ createdAt: -1 })
-                .skip(perPage * (page - 1))
-                .limit(perPage);
-        } else if (option === "director") {
-            movies = await Movie.find({ director: { $regex: titleRegex } })
-                .sort({ createdAt: -1 })
-                .skip(perPage * (page - 1))
-                .limit(perPage);
+            if (option === "title") {
+                movies = await Movie.find({ title: { $regex: titleRegex } })
+                    .sort({ createdAt: -1 })
+                    .skip(perPage * (page - 1))
+                    .limit(perPage);
+            } else if (option === "director") {
+                movies = await Movie.find({ director: { $regex: titleRegex } })
+                    .sort({ createdAt: -1 })
+                    .skip(perPage * (page - 1))
+                    .limit(perPage);
+            } else {
+                movies = await Movie.find({
+                    $or: [
+                        { director: { $regex: titleRegex } },
+                        { title: { $regex: titleRegex } },
+                    ],
+                })
+                    .sort({ createdAt: -1 })
+                    .skip(perPage * (page - 1))
+                    .limit(perPage);
+            }
         } else {
-            movies = await Movie.find({
-                $or: [
-                    { director: { $regex: titleRegex } },
-                    { title: { $regex: titleRegex } },
-                ],
-            })
+            movies = await Movie.find()
                 .sort({ createdAt: -1 })
                 .skip(perPage * (page - 1))
                 .limit(perPage);

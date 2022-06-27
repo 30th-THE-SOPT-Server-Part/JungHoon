@@ -54,9 +54,9 @@ const getReviews = async (movieId: string): Promise<ReviewResponseDto[]> => {
 
 const getReviewsBySearch = async (
     movieId: string,
-    search: string,
-    option: ReviewOptionType,
-    page: number
+    page: number,
+    search?: string,
+    option?: ReviewOptionType
 ): Promise<ReviewsResponseDto> => {
     const regex = (search: string) => new RegExp(`.*${search}.*`);
 
@@ -64,33 +64,42 @@ const getReviewsBySearch = async (
     const perPage: number = 2;
 
     try {
-        const pattern = regex(search);
+        if (option && search) {
+            const pattern = regex(search);
 
-        if (option === "title") {
-            reviews = await Review.find({ title: { $regex: pattern } })
-                .where('movie')
-                .equals(movieId)
-                .sort({ createdAt: -1 })
-                .skip(perPage * (page - 1))
-                .limit(perPage);
-        } else if (option === "content") {
-            reviews = await Review.find({ content: { $regex: pattern } })
-                .where("movie")
-                .equals(movieId)
-                .populate('movie')
-                .sort({ createdAt: -1 })
-                .skip(perPage * (page - 1))
-                .limit(perPage);
+            if (option === "title") {
+                reviews = await Review.find({ title: { $regex: pattern } })
+                    .where("movie")
+                    .equals(movieId)
+                    .sort({ createdAt: -1 })
+                    .skip(perPage * (page - 1))
+                    .limit(perPage);
+            } else if (option === "content") {
+                reviews = await Review.find({ content: { $regex: pattern } })
+                    .where("movie")
+                    .equals(movieId)
+                    .populate("movie")
+                    .sort({ createdAt: -1 })
+                    .skip(perPage * (page - 1))
+                    .limit(perPage);
+            } else {
+                reviews = await Review.find({
+                    $or: [
+                        { title: { $regex: pattern } },
+                        { content: { $regex: pattern } },
+                    ],
+                })
+                    .where("movie")
+                    .equals(movieId)
+                    .populate("writer")
+                    .sort({ createdAt: -1 })
+                    .skip(perPage * (page - 1))
+                    .limit(perPage);
+            }
         } else {
-            reviews = await Review.find({
-                $or: [
-                    { title: { $regex: pattern } },
-                    { content: { $regex: pattern } },
-                ],
-            })
+            reviews = await Review.find()
                 .where("movie")
                 .equals(movieId)
-                .populate("writer")
                 .sort({ createdAt: -1 })
                 .skip(perPage * (page - 1))
                 .limit(perPage);
