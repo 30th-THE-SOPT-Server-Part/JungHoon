@@ -80,7 +80,7 @@ const getReviewsBySearch = async (req: Request, res: Response) => {
     const page: number = Number(req.query.page || 1);
 
     try {
-        let data: ReviewsResponseDto[] = [];
+        let data: ReviewsResponseDto[] | ReviewsResponseDto = [];
         if (search && option) {
             const isOptionType = (
                 option: string

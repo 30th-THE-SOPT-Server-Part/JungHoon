@@ -121,10 +121,12 @@ const getMoviesBySearch = async (
         const total: number = await Movie.countDocuments({});
         const lastPage: number = Math.ceil(total / perPage);
 
-        return {
-            lastPage,
+        const data: MoviesResponseDto = {
             movies,
+            lastPage
         };
+
+        return data;
     } catch (error) {
         console.log(error);
         throw error;

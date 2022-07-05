@@ -109,12 +109,12 @@ const getMoviesBySearch = async (req: Request, res: Response) => {
     const page: number = Number(req.query.page || 1);
 
     try {
-        let data: MoviesResponseDto[] = [];
+        let data;
         if (search && option) {
             const isOptionType = (option: string): option is MovieOptionType => {
-                return ["title", "director", "title_director"].indexOf(option) !== -1; 
+                return ["title", "director", "title_director"].indexOf(option) !== -1;
             }
-        
+
             if (!isOptionType(option as string)) {
                 return res.status(statusCode.BAD_REQUEST).send(
                     util.fail(statusCode.BAD_REQUEST, message.BAD_REQUEST)
